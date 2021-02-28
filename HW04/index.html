@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible">
+    <title>HW4</title>
+
+    <!-- Документация:
+        
+        https://developer.mozilla.org/ru/docs/HTML/HTML5/Constraint_validation
+        
+        form.checkValidity() > Проверка всех полей формы на валидость
+        form.reportValidity() > Проверяет все поля на валидность и выводит возле каждого из не прошедшего валидацию
+            сообщение с ошибкой
+
+        formElement.validity > Объект с параметрами валидности поля 
+        formElement.setCustomValidity(message) > Метод который задаст validity.valid = false, и при попытке отправки
+            сообщения выведет message в браузерный попал
+
+        Классы для стилизации состояния элемента
+        input:valid{}
+        input:invalid{}
+
+        
+        Задание:
+        
+        Используя браузерное API для валидации форм реализовать валидацию следующей формы:
+        
+
+        - Имя пользователя: type:text -> validation: required; minlength = 2;  
+            Если пустое выввести сообщение: "Как тебя зовут дружище?!"
+        - Email: type: email -> validation: required; minlength = 3; validEmail;
+            Если эмейл не валидный вывести сообщение "Ну и зря, не получишь бандероль с яблоками!"
+        - Пароль: type: password -> validation: required; minlength = 8; maxlength=16;
+            Если пустой вывести сообщение: "Я никому не скажу наш секрет";
+        - Количество сьеденых яблок: type: number -> validation: required; minlength = 1; validNumber;
+            Если количество 0 вывести эррор с сообщением "Ну хоть покушай немного... Яблочки вкусные"
+        - Напиши спасибо за яблоки: type: text -> validation: required; 
+            Если текст !== "спасибо" вывести эррор с сообщением "Фу, неблагодарный(-ая)!" используя setCustomValidity();
+
+        - Согласен на обучение: type: checkbox -> validation: required;
+            Если не выбран вывести эррор с сообщение: "Необразованные живут дольше! Хорошо подумай!"
+
+        Внизу две кнопки:
+
+        1) Обычный submit который отправит форму, если она валидна.
+        2) Кнопка Validate(Проверить) которая запускает методы:
+            - yourForm.checkValidity: и выводит на страницу сообщение с результатом проверки
+            - yourForm.reportValidity: вызывает проверку всех правил и вывод сообщения с ошибкой, если такая есть -->
+    <style>
+        #form {
+            background-color: rgba(28, 137, 170, 0.253);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 5% auto;
+            border-radius: 20px;
+            padding: 100px;
+            width: 300px;
+        }
+
+        #form input {
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        input:valid {
+            border: 1px solid green;
+        }
+
+        input:invalid {
+            border: 1px solid red;
+        }
+
+        .quantity {
+            display: block;
+        }
+
+        .number {
+            margin-top: 20px;
+            max-width: 50px;
+        }
+
+        #thanx {
+            margin-top: 20px;
+        }
+
+        button {
+            text-align: center;
+            margin-bottom: 10px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" class="userName" name='name' placeholder="Имя пользователя" minlength="2"
+            validation='required'>
+        <input type="email" validEmail class="email" name='email' placeholder="Email" minlength="3"
+            validation='required'>
+        <input type="password" class="password" name='password' placeholder="Пароль" minlength='8' maxlength='16'
+            validation='required'>
+
+        <label for="number" class="quantity">
+            <text>Количество съеденных яблок:</text>
+            <input type="number" class="number" id="number" name='number' validation='required' minlength='1'>
+        </label>
+        <label for="thanx" class="thanx">
+            <text> Напиши "спасибо" за яблоки</text>
+            <input type="text" id="thanx" placeholder="Спасибо" validation='required'>
+        </label>
+        <label for="agree">
+            <input type="checkbox" id="agree" validation='required'>
+            <text>Вы согласны на обучение?</text>
+        </label>
+        <button id="submit"> Submit </button>
+        <button id="Validate"> Validate </button>
+    </form>
+
+    <script>
+        var yourForm = document.querySelector('#form');
+        var validate = document.querySelector('#Validate');
+        var submit = document.querySelector('#submit');
+
+        validate.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (yourForm.checkValidity() != false) {
+                alert("Все ОК");
+            } else {
+                alert('Ошибка! Некорректно заполнено поле!')
+            }
+        });
+
+        submit.addEventListener('click', function () {
+            var userName = document.querySelector('.userName');
+            if (userName.value == '') {
+                userName.setCustomValidity('Как тебя зовут дружище?!');
+            } else {
+                userName.setCustomValidity("");
+            }
+            var email = document.querySelector('.email');
+            if (email.value == '') {
+                email.setCustomValidity('Ну и зря, не получишь бандероль с яблоками!');
+            } else {
+                email.setCustomValidity("");
+            }
+            var password = document.querySelector('.password');
+            if (password.value == '') {
+                password.setCustomValidity('Я никому не скажу наш секрет');
+            } else {
+                password.setCustomValidity("");
+            }
+            var quantity = document.querySelector('.number');
+            if (quantity.value <= '0') {
+                quantity.setCustomValidity('ну хоть покушай немного... Яблочки вкусные')
+            } else {
+                quantity.setCustomValidity("");
+            }
+
+            var thanx = document.querySelector('#thanx')
+            if (thanx.value !== "Спасибо") {
+                thanx.setCustomValidity('Фу, неблагодарный(-ая)!');
+            } else {
+                thanx.setCustomValidity("");
+            }
+
+            var agreeCheckBox = document.querySelector('#agree');
+            if (agreeCheckBox.checked !== true) {
+                agreeCheckBox.setCustomValidity("Необразованные живут дольше! Хорошо подумай!")
+            } else {
+                agreeCheckBox.setCustomValidity("");
+            }
+        });
+    </script>
+</body>
+
+</html>
