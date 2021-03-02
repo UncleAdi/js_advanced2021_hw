@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        ul li.checked {
+            text-decoration: line-through;
+            cursor: pointer;
+        }
+
+        ul li.checked::before {
+            content: '';
+            position: absolute;
+            height: 15px;
+            width: 7px;
+        }
+
+        .cls {
+            padding: 10px;
+        }
+
+        .cls:hover {
+            cursor: pointer;
+        }
+
+        .header:after {
+            clear: both;
+        }
+
+        input {
+            box-sizing: border-box;
+            padding: 10px 20px;
+        }
+
+        .addBtn {
+            box-sizing: border-box;
+            padding: 10px 20px;
+            background: #ffcc00;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        button {
+            background: red;
+
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="task1" class="header">
+
+        <input type="text" id="Inp">
+        <button onclick="newElement()" class="addBtn">Add</button>
+    </div>
+
+    <ul id="lst">
+
+    </ul>
+    <script>
+        var toDoList = document.getElementsByTagName("LI");
+        var i;
+        for (i = 0; i < toDoList.length; i++) {
+            var doSmt = document.createTextNode("x");
+            span.className = "cls";
+            span.appendChild(doSmt);
+            toDoList[i].appendChild(span);
+        }
+
+        var cls = document.getElementsByClassName("cls");
+        var i;
+        for (i = 0; i < cls.length; i++) {
+            cls[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+
+        function newElement() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("Inp").value;
+            var line = document.createTextNode(inputValue);
+            li.appendChild(line);
+            if (inputValue === '') {
+                alert("You have to do something");
+            } else {
+                document.getElementById("lst").appendChild(li);
+            }
+            document.getElementById("Inp").value = "";
+
+            var span = document.createElement("SPAN");
+            var doSmt = document.createTextNode("x");
+            span.className = "cls";
+            span.appendChild(doSmt);
+            li.appendChild(span);
+
+            for (i = 0; i < cls.length; i++) {
+                cls[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

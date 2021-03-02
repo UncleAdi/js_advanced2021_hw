@@ -26,8 +26,8 @@ var prevSlide = document.getElementById("PrevSilde");
 var nextSlide = document.getElementById("NextSilde");
 var img = document.createElement("img");
 
-nextSlide.addEventListener("click", nextImg);
-prevSlide.addEventListener("click", prevImg);
+nextSlide.addEventListener("click", nSlide);
+prevSlide.addEventListener("click", pSlide);
 //1
 window.addEventListener("load", 
 
@@ -36,7 +36,7 @@ function () {
   slider.appendChild(img)
 });
 //3
-function nextImg() {
+function nSlide() {
   img.src = OurSliderImages[currentPosition]
   currentPosition++
   if (currentPosition >= 8) {
@@ -46,7 +46,7 @@ function nextImg() {
   }
 };
 //4
-function prevImg() {
+function pSlide() {
   img.src = OurSliderImages[currentPosition]
   if (currentPosition < 0) {
     currentPosition = 7

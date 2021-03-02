@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train3</title>
+</head>
+
+<body>
+    <script>
+        /*
+            Задание 1:
+
+            Написать обьект Train у которого будут свойства:
+            -имя,
+            -скорость езды
+            -количество пассажиров
+            Методы:
+            Ехать -> Поезд {name} везет { количество пассажиров} со скоростью {speed}
+            Стоять -> Поезд {name} остановился. Скорость {speed}
+            Подобрать пассажиров -> Увеличивает кол-во пассажиров на Х
+        */
+       
+        var Train = {
+            name: 'Kostjantynivka - Odesa',
+            speed: 140,
+            capacity: 50,
+            goes: function G() {
+                return this.name + ' goes with ' + this.capacity + ' persons onboard, with speed ' + this.speed +
+                    ' kph';
+            },
+            stop: function S() {
+                return this.name + ' stopped';
+            },
+            takes: function T() {
+                return this.capacity + 20 + ' persons onboard now';
+
+            }
+
+        }; 
+
+        /* Методи для перевірки
+
+        Train.goes()
+        Train.stop()
+        Train.takes()
+
+ */
+
+
+
+        
+    </script>
+</body>
+
+</html>
