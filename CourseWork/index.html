@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CourseWork_Necheporenko</title>
+  <style>
+    body {
+      background-color: rgba(2, 177, 221, 0.219);
+      overflow-y: auto;
+    }
+
+    h3 {
+      background-color: rgba(2, 177, 221, 0.219);
+      border-radius: 5px;
+      padding: 5px;
+      margin-left: 5px;
+      width: 10%;
+      color: rgba(7, 33, 39, 0.719);
+      text-align: center;
+    }
+
+    .imgRow {
+      background-color: rgba(25, 70, 82, 0.534);
+      border-radius: 5px;
+      display: flex;
+      margin: auto;
+      flex-wrap: wrap;
+      clear: both;
+    }
+
+    .imgRow:after {
+      content: " ";
+      display: table;
+      clear: both;
+    }
+
+    .imgCol {
+      float: left;
+      position: relative;
+    }
+
+    .imgCol .thumbnail {
+      border-radius: 20px;
+      display: block;
+      overflow: hidden;
+    }
+
+    .imgCol img {
+      border-radius: 10px;
+      width: auto;
+      height: 190px;
+      padding: 5px;
+    }
+
+    #container {
+      align-items: center;
+      background: rgba(51, 51, 51, 0.438);
+      bottom: 0;
+      left: 0;
+      top: 0;
+      right: 0;
+      position: absolute;
+      justify-content: center;
+      display: none;
+    }
+
+    #container img {
+      position: absolute;
+      /* Change to 'cover' to fill the space */
+      object-fit: contain;
+      /* Remove 'max-' to fill the space*/
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+    #container .xbutton {
+      color: white;
+      cursor: pointer;
+      font-size: 35px;
+      padding: 25px;
+      position: fixed;
+      right: 20px;
+      top: 35px;
+      z-index: 1;
+      border-radius: 10px;
+    }
+
+    #container .xbutton:hover {
+      background: rgba(51, 51, 51, 0.438);
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Gallery 1</h3>
+  <div class="imgRow">
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/01.jpg" fullImage="img/01.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/02.jpg" fullImage="img/02.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/03.jpg" fullImage="img/03.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/04.jpg" fullImage="img/04.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+  </div>
+  <h3>Gallery 2</h3>
+  <div class="imgRow">
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/05.jpg" fullImage="img/05.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/06.jpg" fullImage="img/06.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/07.jpg" fullImage="img/07.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/08.jpg" fullImage="img/08.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+  </div>
+  <h3>Gallery 3</h3>
+  <div class="imgRow">
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/09.jpg" fullImage="img/09.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/10.jpg" fullImage="img/10.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/11.jpg" fullImage="img/11.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+    <div class="imgCol">
+      <a href="#" class="thumbnail">
+        <img src="img/12.jpg" fullImage="img/12.jpg" onclick="enlarge(this);">
+      </a>
+    </div>
+  </div>
+  <div id="container">
+    <span onclick="collapse();" class="xbutton">&times</span>
+    <img id="fScreen">
+  </div>
+
+  <script>
+    var elem = document.getElementById("container");
+
+    function enlarge(img) {
+      var fScreen = document.getElementById("fScreen");
+      fScreen.src = img.getAttribute("fullImage");
+      deploy();
+    }
+
+    function deploy() {
+      elem.style.display = "flex";
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+        /* наступний відрізок був запозичений з w3schools через некоректну роботу в Firefox */
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    }
+
+    function collapse() {
+      elem.style.display = "none";
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        /* наступний відрізок був запозичений з w3schools через некоректну роботу в Firefox */
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+  </script>
+
+</body>
+
+</html>
